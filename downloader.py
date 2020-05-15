@@ -8,13 +8,15 @@ parser = argparse.ArgumentParser(description='Book downloader from Hathitrust')
 parser.add_argument('id', type=str, help="The ID of the book, e.g 'mdp.39015027794331'.")
 parser.add_argument('pages', type=int, help="The amount of pages to be downloaded")
 parser.add_argument('--name', dest='name', type=str, help="The start of the filename. Defaults to using the id")
+parser.add_argument('--start-page', dest='start_page', type=int, help="The starting page number", default="1")
 
 args = parser.parse_args()
 
-urls = ["https://babel.hathitrust.org/cgi/imgsrv/download/pdf?id=%s;orient=0;size=100;seq=%s;attachment=0" % (args.id, i) for i in range(1, args.pages)]
+page_numbers = [i + 1 for i in range(args.start_page, args.pages)]
+urls = ["https://babel.hathitrust.org/cgi/imgsrv/download/pdf?id=%s;orient=0;size=100;seq=%s;attachment=0" % (args.id, i + 1) for i in page_numbers]
 
-for index, url in tqdm(enumerate(urls), unit="pages", total=len(urls)):
-    filename = "%s_p%s.pdf" % (args.name or args.id, str(index).zfill(6))
+for page_number, url in tqdm(zip(page_numbers, urls), unit="pages", total=len(urls)):
+    filename = "%s_p%s.pdf" % (args.name or args.id, str(page_number).zfill(6))
 
     while True:
         try:
