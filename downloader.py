@@ -28,7 +28,7 @@ for page_number, url in tqdm(zip(page_numbers, urls), unit="pages", total=len(ur
                         handle.write(data)
 
                 break
-        except Exception as e:
-            print(e)
+        except:
+            pass
 
         time.sleep(1)
