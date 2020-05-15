@@ -30,6 +30,9 @@ jobs:
       run: |
         pyinstaller downloader.py
 
+    - name: ZIP the release
+      run: Compress-Archive -Path dist/downloader downloader.zip
+
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
@@ -48,6 +51,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: dist/downloader/downloader.exe
-        asset_name: downloader.exe
-        asset_content_type: application/vnd.microsoft.portable-executable
+        asset_path: downloader.zip
+        asset_name: downloader.zip
+        asset_content_type: application/zip
