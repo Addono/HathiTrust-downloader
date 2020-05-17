@@ -52,5 +52,5 @@ jobs:
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: downloader.zip
-        asset_name: downloader.zip
+        asset_name: downloader_${{ github.ref }}_win.zip
         asset_content_type: application/zip
