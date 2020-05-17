@@ -12,8 +12,11 @@ parser.add_argument('--name', dest='name', type=str, help="The start of the file
 
 args = parser.parse_args()
 
-page_numbers = [i for i in range(args.start_page, args.end_page + 1)]
+page_numbers = [i for i in range(args.start_page - 1, args.end_page)]
 urls = ["https://babel.hathitrust.org/cgi/imgsrv/download/pdf?id=%s;orient=0;size=100;seq=%s;attachment=0" % (args.id, i + 1) for i in page_numbers]
+
+for url in urls:
+    print(url)
 
 for page_number, url in tqdm(zip(page_numbers, urls), unit="pages", total=len(urls)):
     filename = "%s_p%s.pdf" % (args.name or args.id, str(page_number).zfill(6))
