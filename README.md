@@ -24,7 +24,9 @@ python downloader.py --help
 
 ### Windows Executable
 
-Under [Releases](https://github.com/Addono/HathiTrust-downloader/releases) also executables for Windows are build. Download and extract the ZIPs. Then point a shell, e.g. `cmd` or `powershell`, to the directory where the ZIP is extracted. This binary is bundled with Python and all other dependencies pre-installed. Now the tool can be used like:
+There are also Windows executables available. Download the `downloader.zip` from [releases](https://github.com/Addono/HathiTrust-downloader/releases/) and extract it. Then open a shell, e.g. `cmd` or `powershell`, to the directory where the ZIP is extracted. The easiest way to do this is by opening the folder in Explorer and right click while holding shift, now select the option "Open PowerShell Window Here".
+
+The executable is bundled with Python and all other dependencies, hence you do not need to have anything installed. Now the tool can be used like:
 
 ```powershell
 .\downloader.exe --help 
