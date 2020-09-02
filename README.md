@@ -63,4 +63,4 @@ The ID of the file can be found as part of the URL when opening a book through y
 
 ### No Progess / Progress Bar is Stuck
 
-hathiTrust limits the amount of pages you can download to 15 every 5 minutes. When you hit that limit you will need to wait, the tool will automatically wait and resume when the timeout is finished.
+Make sure that you can access books on HathiTrust. Try to open a book in your browser to see if everything is working fine. HathiTrust can require you to connect from an American IP. In addition, they limit the amount of pages you can download to 15 every 5 minutes. When you hit that limit you will need to wait, the tool will automatically wait and resume when the timeout is finished.
