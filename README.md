@@ -4,7 +4,11 @@
 
 ### Python 3 (OS Agnostic)
 
-Download `downloader.py` and then point a shell to where the file was downloaded.
+Download or clone the source code, then open a shell and point it to this folder. To check which version of Python you have installed, run:
+
+```bash
+python -V
+```
 
 Then install the dependencies using `pip`:
 
