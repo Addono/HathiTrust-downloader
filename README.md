@@ -58,3 +58,9 @@ python downloader.py mdp.39015027794331 1 10 --name my-book
 ```
 
 The ID of the file can be found as part of the URL when opening a book through your browser.
+
+## Troubleshooting
+
+### No Progess / Progress Bar is Stuck
+
+hathiTrust limits the amount of pages you can download to 15 every 5 minutes. When you hit that limit you will need to wait, the tool will automatically wait and resume when the timeout is finished.
