@@ -2,19 +2,25 @@
 
 ## Installing
 
-### Python (OS Agnostic)
+### Python 3 (OS Agnostic)
 
-Download `downloader.py` and then point a shell to where the file was downloaded. Now run:
+Download `downloader.py` and then point a shell to where the file was downloaded.
+
+Then install the dependencies using `pip`:
+
+```bash
+pip install -r requirements.txt
+```
+
+Then you can use the application from the command line, e.g. to show the help instructions run:
 
 ```bash
 python downloader.py --help
 ```
 
-
-
 ### Windows Executable
 
-Under [Releases](https://github.com/Addono/HathiTrust-downloader/releases) also executables for Windows are build. Download and extract the ZIPs. Then, point a shell, e.g. `cmd` or `powershell` to the directory where the ZIP is extracted. Now the tool can be used like:
+Under [Releases](https://github.com/Addono/HathiTrust-downloader/releases) also executables for Windows are build. Download and extract the ZIPs. Then point a shell, e.g. `cmd` or `powershell`, to the directory where the ZIP is extracted. Now the tool can be used like:
 
 ```powershell
 .\downloader.exe --help 
