@@ -4,13 +4,15 @@
 
 ### Python 3 (OS Agnostic)
 
-Download or clone the source code, then open a shell and point it to this folder. To check which version of Python you have installed, run:
+Download or clone the source code, then open a shell and point it to this folder. 
 
-```bash
-python -V
-```
+> Run the following command to check which version of Python you have installed:
+>
+> ```bash
+> python -V
+> ```
 
-Then install the dependencies using `pip`:
+Install all required dependencies using `pip`:
 
 ```bash
 pip install -r requirements.txt
