@@ -4,7 +4,9 @@
 
 ### Python 3 (OS Agnostic)
 
-Download or clone the source code, then open a shell and point it to this folder. 
+Download or clone the source code.
+
+Then open a shell in the folder where you extracted the source code. 
 
 > Run the following command to check which version of Python you have installed:
 >
