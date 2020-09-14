@@ -1,4 +1,5 @@
 from tqdm import tqdm
+
 import requests
 import time
 import argparse
@@ -32,3 +33,4 @@ for page_number, url in tqdm(zip(page_numbers, urls), unit="pages", total=len(ur
             pass
 
         time.sleep(1)
+
