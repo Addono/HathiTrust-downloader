@@ -1,4 +1,4 @@
-name: Release Github
+name: Release
 
 on:
   push:
@@ -59,3 +59,33 @@ jobs:
         asset_name: downloader_${{ steps.get_version.outputs.VERSION }}_win.zip
         asset_content_type: application/zip
 
+  release:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+
+    - name: Install Tools
+      run: |
+        python -m pip install --upgrade pip
+        pip install setuptools wheel twine
+
+    - name: Get the version
+      id: get_version
+      run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
+      shell: bash
+
+    - name: Package and Upload
+      env:
+        HATHITRUST_DOWNLOADER_VERSION: ${{ steps.get_version.outputs.VERSION }}
+        TWINE_USERNAME: __token__
+        TWINE_PASSWORD: ${{ secrets.PYPI_APIKEY }}
+      run: |
+        python setup.py sdist bdist_wheel
+        twine upload dist/*
