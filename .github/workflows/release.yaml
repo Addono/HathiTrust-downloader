@@ -29,7 +29,7 @@ jobs:
       run: |
         pyinstaller hathitrustdownloader/cli.py --name downloader
 
-    - name: ZIP the release
+    - name: ZIP the Windows release artifacts
       run: Compress-Archive -Path dist/downloader downloader.zip
 
     - name: Create Release
