@@ -57,7 +57,7 @@ optional arguments:
 One example which downloads page 1 until (and including) 10 of the book with id `mdp.39015027794331` and naming the files `my-book_page_<page_number>.pdf`:
 
 ```bash
-python downloader.py mdp.39015027794331 1 10 --name my-book
+hathitrust-downloader mdp.39015027794331 1 10 --name my-book
 ```
 
 The ID of the file can be found as part of the URL when opening a book through your browser.
