@@ -43,6 +43,11 @@ jobs:
         draft: false
         prerelease: ${{ contains(github.ref, '-rc') }}
 
+    - name: Get the version
+      id: get_version
+      run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
+      shell: bash
+
     - name: Upload Release Asset
       id: upload-release-asset 
       uses: actions/upload-release-asset@v1
@@ -51,6 +56,6 @@ jobs:
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: downloader.zip
-        asset_name: downloader_${{ github.ref }}_win.zip
+        asset_name: downloader_${{ steps.get_version.outputs.VERSION }}_win.zip
         asset_content_type: application/zip
 
