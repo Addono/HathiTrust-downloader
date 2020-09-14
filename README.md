@@ -1,4 +1,5 @@
 # HathiTrust Downloader
+[![PyPI](https://img.shields.io/pypi/v/hathitrust-downloader?style=flat-square)](https://pypi.org/project/hathitrust-downloader/)
 
 ## Installing
 
