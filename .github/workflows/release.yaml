@@ -6,9 +6,8 @@ on:
     tags:
     - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
 
-
 jobs:
-  build:
+  release-windows:
 
     runs-on: windows-latest
 
@@ -23,12 +22,12 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r requirements.txt
+        python setup.py install
         pip install pyinstaller
 
     - name: build with pyinstaller
       run: |
-        pyinstaller downloader.py
+        pyinstaller hathitrustdownloader/cli.py --name downloader
 
     - name: ZIP the release
       run: Compress-Archive -Path dist/downloader downloader.zip
@@ -54,3 +53,30 @@ jobs:
         asset_path: downloader.zip
         asset_name: downloader_${{ github.ref }}_win.zip
         asset_content_type: application/zip
+
+  release-pypi:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.8
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        python setup.py install
+        pip install setuptools wheel twine
+
+    - name: Package and Upload
+      env:
+        HATHITRUST_DOWNLOADER_VERSION: ${{ github.ref }}
+        TWINE_USERNAME: __token__
+        TWINE_PASSWORD: ${{ secrets.PYPI_APIKEY }}
+      run: |
+        python setup.py sdist bdist_wheel
+        twine upload dist/*
+
