@@ -29,8 +29,7 @@ for page_number, url in tqdm(zip(page_numbers, urls), unit="pages", total=len(ur
                         handle.write(data)
 
                 break
+        except KeyboardInterrupt:
+            break
         except:
-            pass
-
-        time.sleep(1)
-
+            time.sleep(1)
