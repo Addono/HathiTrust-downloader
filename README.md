@@ -4,26 +4,24 @@
 
 ### Python 3 (OS Agnostic)
 
-Download or clone the source code.
-
-Then open a shell in the folder where you extracted the source code. 
-
-> Run the following command to check which version of Python you have installed:
->
-> ```bash
-> python -V
-> ```
-
-Install all required dependencies using `pip`:
+Check that you have Python 3 installed and available on your shell. The following command should return something like `Python 3.8.5`.
 
 ```bash
-pip install -r requirements.txt
+python -V
 ```
 
-Then you can use the application from the command line, e.g. to show the help instructions run:
+> Windows users: Make sure to enable the "Add to PATH" option when installing Python.
+
+Now you can install using `pip` with the following command.
 
 ```bash
-python downloader.py --help
+pip install hathitrust-downloader
+```
+
+Which allows you to interact with the downloader from the command line:
+
+```bash
+hathitrust-downloader --help
 ```
 
 ### Windows Executable
@@ -41,7 +39,7 @@ The executable is bundled with Python and all other dependencies, hence you do n
 The help should give some instructions on how to use the tool:
 
 ```bash
-usage: downloader.py [-h] [--name NAME] id start_page end_page
+usage: hathitrust-downloader [-h] [--name NAME] id start_page end_page
 
 Book downloader from Hathitrust
 
