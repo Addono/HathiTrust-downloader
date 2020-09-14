@@ -2,7 +2,8 @@ name: Release to PyPI
 
 on:
   release:
-    types: [released, prereleased]
+    types:
+     - created
 
 jobs:
   release:
