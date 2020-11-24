@@ -1,5 +1,9 @@
 # HathiTrust Downloader
-[![PyPI](https://img.shields.io/pypi/v/hathitrust-downloader?style=flat-square)](https://pypi.org/project/hathitrust-downloader/)
+[![PyPI](https://img.shields.io/pypi/v/hathitrust-downloader?style=flat-square&logo=pypi)][pypi]
+[![PyPI - Downloads](https://img.shields.io/pypi/dm/hathitrust-downloader?logo=pypi&style=flat-square)][pypi]
+[![GitHub version](https://img.shields.io/github/release/Addono/HathiTrust-downloader.svg?style=flat-square&logo=github)][github-releases]
+[![GitHub download](https://img.shields.io/github/downloads/Addono/HathiTrust-downloader/total.svg?style=flat-square&logo=github)][github-releases]
+[![License](https://img.shields.io/github/license/Addono/HathiTrust-downloader.svg?style=flat-square)](LICENSE)
 
 ## Installing
 
@@ -67,3 +71,6 @@ The ID of the file can be found as part of the URL when opening a book through y
 ### No Progess / Progress Bar is Stuck
 
 Make sure that you can access books on HathiTrust. Try to open a book in your browser to see if everything is working fine. HathiTrust can require you to connect from an American IP. In addition, they limit the amount of pages you can download to 15 every 5 minutes. When you hit that limit you will need to wait, the tool will automatically wait and resume when the timeout is finished.
+
+[pypi]: https://pypi.org/project/hathitrust-downloader/
+[github-releases]: https://github.com/Addono/HathiTrust-downloader/releases/latest
