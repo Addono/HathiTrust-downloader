@@ -32,18 +32,18 @@ jobs:
 
     - name: Get the version
       id: get_version
-      run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
+      run: echo "VERSION=${GITHUB_REF/refs\/tags\//}" >> $GITHUB_ENV
       shell: bash
       
     - name: ZIP the Windows release artifacts
-      run: Compress-Archive -Path dist/downloader downloader_${{ steps.get_version.outputs.VERSION }}_win.zip
+      run: Compress-Archive -Path dist/downloader downloader_${{ env.VERSION }}_win.zip
       
     - name: Release
       uses: softprops/action-gh-release@v1
       if: startsWith(github.ref, 'refs/tags/')
       with:
         generate_release_notes: true
-        files: downloader_${{ steps.get_version.outputs.VERSION }}_win.zip
+        files: downloader_${{ env.VERSION }}_win.zip
 
   release:
 
@@ -64,12 +64,12 @@ jobs:
 
     - name: Get the version
       id: get_version
-      run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
+      run: echo "VERSION=${GITHUB_REF/refs\/tags\//}" >> $GITHUB_ENV
       shell: bash
 
     - name: Package and Upload
       env:
-        HATHITRUST_DOWNLOADER_VERSION: ${{ steps.get_version.outputs.VERSION }}
+        HATHITRUST_DOWNLOADER_VERSION: ${{ env.VERSION }}
         TWINE_USERNAME: __token__
         TWINE_PASSWORD: ${{ secrets.PYPI_APIKEY }}
       run: |
