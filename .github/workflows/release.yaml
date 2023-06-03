@@ -30,28 +30,13 @@ jobs:
       run: |
         pyinstaller hathitrustdownloader/cli.py --name downloader
 
-    - name: ZIP the Windows release artifacts
-      run: Compress-Archive -Path dist/downloader downloader.zip
-
-    - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: ${{ github.ref }}
-        release_name: Release ${{ github.ref }}
-        draft: false
-        prerelease: ${{ contains(github.ref, '-rc') }}
-
     - name: Get the version
       id: get_version
       run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
       shell: bash
       
-    - name: Rename release file
-      run: mv downloader.zip downloader_${{ steps.get_version.outputs.VERSION }}_win.zip
-      shell: bash
+    - name: ZIP the Windows release artifacts
+      run: Compress-Archive -Path dist/downloader downloader_${{ steps.get_version.outputs.VERSION }}_win.zip
       
     - name: Release
       uses: softprops/action-gh-release@v1
