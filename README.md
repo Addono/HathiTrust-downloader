@@ -59,7 +59,7 @@ optional arguments:
   --name NAME  The start of the filename. Defaults to using the id. This can
 ```
 
-One example which downloads page 1 until (and including) 10 of the book with id `mdp.39015027794331` and naming the files `my-book_page_<page_number>.pdf`:
+For example, the following command will download page 1 until (and including) 10 of the book with id `mdp.39015027794331` and naming the files output files `my-book_page_<page_number>.pdf`:
 
 ```bash
 hathitrust-downloader mdp.39015027794331 1 10 --name my-book
