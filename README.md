@@ -50,7 +50,7 @@ usage: hathitrust-downloader [-h] [--name NAME] id start_page end_page
 Book downloader from Hathitrust
 
 positional arguments:
-  id           The ID of the book, e.g 'mdp.39015027794331'.
+  id           The ID of the book, e.g 'mdp.39015073487137'.
   start_page   The page number of the first page to be downloaded.
   end_page     The last number of the last page to be downloaded (inclusive).
 
@@ -59,13 +59,18 @@ optional arguments:
   --name NAME  The start of the filename. Defaults to using the id. This can
 ```
 
-For example, the following command will download page 1 until (and including) 10 of the book with id `mdp.39015027794331` and naming the files output files `my-book_page_<page_number>.pdf`:
+For example, the following command will download page 1 until (and including) 10 of the book with id `mdp.39015073487137` and naming the files output files `my-book_page_<page_number>.pdf`:
 
 ```bash
-hathitrust-downloader mdp.39015027794331 1 10 --name my-book
+hathitrust-downloader mdp.39015073487137 1 10 --name my-book
 ```
 
-The ID of the file can be found as part of the URL when opening a book through your browser.
+> [!IMPORTANT]
+> The ID of the file can be found as part of the URL when opening a book through your browser. Below is an example URL and where to find the ID:
+> ```
+> https://babel.hathitrust.org/cgi/pt?id=mdp.39015073487137&seq=13
+>                                        ^^^^^^^^^^^^^^^^^^ This demarks the ID of this book
+> ```
 
 ## Troubleshooting
 
