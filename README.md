@@ -80,3 +80,25 @@ Make sure that you can access books on HathiTrust. Try to open a book in your br
 
 [pypi]: https://pypi.org/project/hathitrust-downloader/
 [github-releases]: https://github.com/Addono/HathiTrust-downloader/releases/latest
+
+## Developing
+
+Clone the repository:
+
+```bash
+git clone https://github.com/Addono/HathiTrust-downloader.git
+cd ./HathiTrust-downloader
+```
+
+(Optional) Create a virtual Python environment, recommended but not required.
+
+Install the package with dependencies:
+```
+pip install .
+```
+
+Now you can run the tool with:
+
+```bash
+python -m hathitrustdownloader.cli --help
+```
