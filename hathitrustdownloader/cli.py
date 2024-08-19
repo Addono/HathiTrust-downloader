@@ -5,7 +5,7 @@ import time
 import argparse
 
 def main():
-    parser = argparse.ArgumentParser(description='Book downloader from Hathitrust')
+    parser = argparse.ArgumentParser(description='Book downloader for HathiTrust')
 
     parser.add_argument('id', type=str, help="The ID of the book, e.g 'mdp.39015027794331'.")
     parser.add_argument('start_page', type=int, help="The page number of the first page to be downloaded.")

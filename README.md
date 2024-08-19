@@ -47,16 +47,16 @@ The help should give some instructions on how to use the tool:
 ```bash
 usage: hathitrust-downloader [-h] [--name NAME] id start_page end_page
 
-Book downloader from Hathitrust
+Book downloader for HathiTrust
 
 positional arguments:
-  id           The ID of the book, e.g 'mdp.39015073487137'.
+  id           The ID of the book, e.g 'mdp.39015027794331'.
   start_page   The page number of the first page to be downloaded.
   end_page     The last number of the last page to be downloaded (inclusive).
 
-optional arguments:
+options:
   -h, --help   show this help message and exit
-  --name NAME  The start of the filename. Defaults to using the id. This can
+  --name NAME  The start of the filename. Defaults to using the id. This can also be used to change the path.
 ```
 
 For example, the following command will download page 1 until (and including) 10 of the book with id `mdp.39015073487137` and naming the files output files `my-book_page_<page_number>.pdf`:
