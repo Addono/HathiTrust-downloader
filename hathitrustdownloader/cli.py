@@ -1,5 +1,5 @@
 from tqdm import tqdm
-
+import os
 import requests
 import time
 import argparse
@@ -13,6 +13,17 @@ def main():
     parser.add_argument('--name', dest='name', type=str, help="The start of the filename. Defaults to using the id. This can also be used to change the path.")
 
     args = parser.parse_args()
+
+    # If --name is used to specify a path, extract the directory part
+    if args.name:
+        directory = os.path.dirname(args.name)
+        if directory and not os.path.exists(directory):
+            try:
+                os.makedirs(directory)
+                print(f"Directory '{directory}' created.")
+            except Exception as e:
+                print(f"Failed to create directory '{directory}': {e}")
+                return
 
     page_numbers = [i for i in range(args.start_page - 1, args.end_page)]
     urls = ["https://babel.hathitrust.org/cgi/imgsrv/download/pdf?id=%s;orient=0;size=100;seq=%s;attachment=0" % (args.id, i + 1) for i in page_numbers]
@@ -32,7 +43,8 @@ def main():
                     break
             except KeyboardInterrupt:
                 return
-            except:
+            except Exception as e:
+                print(f"An error occurred: {e}. Retrying in 1 second.")
                 time.sleep(1)
 
 if __name__ == "__main__":
