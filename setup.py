@@ -35,7 +35,7 @@ setup(
     packages=find_packages(),
     install_requires=[
         'requests==2.32.3',
-        'tqdm==4.66.3',
+        'tqdm==4.66.5',
     ],
     include_package_data=True,
     entry_points={
