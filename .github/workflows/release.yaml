@@ -11,8 +11,29 @@ env:
   PYTHON_VERSION: "3.10"
 
 jobs:
-  release-windows:
+  test:
+    runs-on: ubuntu-latest
 
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python ${{ env.PYTHON_VERSION }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+
+    - name: Set up Bats
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y bats
+
+    - name: Install the application
+      run: pip install .
+
+    - name: Run Bats tests
+      run: bats tests/
+      
+  release-windows:
     runs-on: windows-latest
 
     steps:
