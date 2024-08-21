@@ -35,7 +35,13 @@ def main():
             try:
                 response = requests.get(url, stream=True)
 
-                if response.ok:
+                if response.status_code == 404:
+                    print(f"Error: Page {page_number} for book with ID '{args.id}' not found.")
+                    exit(1)
+                elif response.status_code == 500:
+                    print(f"Error: The server failed to serve page {page_number} for book '{args.id}', this could indicate that the book identifier is invalid.")
+                    return
+                elif response.ok:
                     with open(filename, "wb") as handle:
                         for data in response.iter_content():
                             handle.write(data)
@@ -44,7 +50,7 @@ def main():
             except KeyboardInterrupt:
                 return
             except Exception as e:
-                print(f"An error occurred: {e}. Retrying in 1 second.")
+                print(f"An error occurred: {e}. Retrying in 1 second. Press Ctrl+C to abort.")
                 time.sleep(1)
 
 if __name__ == "__main__":
