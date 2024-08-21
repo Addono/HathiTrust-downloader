@@ -1,5 +1,11 @@
 #!/usr/bin/env bats
 
+setup_file() {
+  if [ -z "$BATS_TEST_TIMEOUT" ]; then
+    export BATS_TEST_TIMEOUT=300
+  fi
+}
+
 setup() {
   # Create a temporary directory for test files
   TMP_DIR=$(mktemp -d)
