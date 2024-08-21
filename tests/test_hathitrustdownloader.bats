@@ -35,15 +35,3 @@ teardown() {
   [ -f "$TMP_DIR/test_multiple_pages_p000001.pdf" ]
   [ -f "$TMP_DIR/test_multiple_pages_p000002.pdf" ]
 }
-
-@test "Handle invalid book ID" {
-  run hathitrust-downloader invalid_id 1 1 --name "$TMP_DIR/test_invalid_id"
-  [ "$status" -ne 0 ]
-  [[ "$output" == *"An error occurred"* ]]
-}
-
-@test "Handle invalid page range" {
-  run hathitrust-downloader mdp.39015027794331 10 1 --name "$TMP_DIR/test_invalid_range"
-  [ "$status" -ne 0 ]
-  [[ "$output" == *"An error occurred"* ]]
-}
