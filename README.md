@@ -10,7 +10,7 @@
 
 ### Python 3 (OS Agnostic)
 
-Check that you have Python 3 installed and available on your shell. The following command should return something like `Python 3.8.5`.
+Check that you have Python 3 installed and available on your shell. The following command should return something like `Python 3.12.5`. 
 
 ```bash
 python -V
