@@ -195,3 +195,4 @@ $RECYCLE.BIN/
 
 # End of https://www.gitignore.io/api/python,venv,direnv,macos,linux,windows
 
+.aider*
