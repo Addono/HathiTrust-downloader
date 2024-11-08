@@ -33,7 +33,7 @@ hathitrust-downloader --help
 
 ### Windows Executable
 
-There are also Windows executables available. Download the `downloader.zip` from [releases](https://github.com/Addono/HathiTrust-downloader/releases/) and extract it. Then open a shell, e.g. `cmd` or `powershell`, to the directory where the ZIP is extracted. The easiest way to do this is by opening the folder in Explorer and right click while holding shift, now select the option "Open PowerShell Window Here".
+There are also Windows executables available. Download the `downloader_<version>_win.zip` from [releases](https://github.com/Addono/HathiTrust-downloader/releases/) and extract it. Then open a shell, e.g. `cmd` or `powershell`, to the directory where the ZIP is extracted. The easiest way to do this is by opening the folder in Explorer and right click while holding shift, now select the option "Open PowerShell Window Here".
 
 The executable is bundled with Python and all other dependencies, hence you do not need to have anything installed. Now the tool can be used like:
 
