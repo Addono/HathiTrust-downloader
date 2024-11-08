@@ -5,6 +5,7 @@
 [![GitHub download](https://img.shields.io/github/downloads/Addono/HathiTrust-downloader/total.svg?style=flat-square&logo=github)][github-releases]
 [![GitHub stars](https://img.shields.io/github/stars/Addono/HathiTrust-downloader?style=flat-square)](https://github.com/Addono/HathiTrust-downloader/stargazers)
 [![License](https://img.shields.io/github/license/Addono/HathiTrust-downloader.svg?style=flat-square)](LICENSE)
+[![CI](https://github.com/Addono/HathiTrust-downloader/actions/workflows/ci.yaml/badge.svg?event=push)][ci-badge]
 
 ## Installing
 
@@ -80,6 +81,7 @@ Make sure that you can access books on HathiTrust. Try to open a book in your br
 
 [pypi]: https://pypi.org/project/hathitrust-downloader/
 [github-releases]: https://github.com/Addono/HathiTrust-downloader/releases/latest
+[ci-badge]: https://github.com/Addono/HathiTrust-downloader/actions/workflows/ci.yaml/badge.svg?event=push
 
 ## Developing
 
