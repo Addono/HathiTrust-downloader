@@ -68,11 +68,12 @@ jobs:
       shell: bash
       
     - name: ZIP the Windows release artifacts
+      if: startsWith(github.ref, 'refs/tags/v')
       run: Compress-Archive -Path dist/downloader downloader_${{ env.VERSION }}_win.zip
       
     - name: Release
       uses: softprops/action-gh-release@v2
-      if: startsWith(github.ref, 'refs/tags/')
+      if: startsWith(github.ref, 'refs/tags/v')
       with:
         generate_release_notes: true
         files: downloader_${{ env.VERSION }}_win.zip
