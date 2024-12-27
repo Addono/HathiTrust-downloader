@@ -8,7 +8,7 @@ repository:
   description: Small and simple command line tool to automate downloading pages from HathiTrust
 
   # A URL with more information about the repository
-  homepage: https://addono.github.io/HathiTrust-downloader/
+  homepage: https://gh.aknapen.nl/HathiTrust-downloader/
 
   # Either `true` to make the repository private, or `false` to make it public.
   private: false
