@@ -35,3 +35,9 @@ teardown() {
   [ -f "$TMP_DIR/test_multiple_pages_p000001.pdf" ]
   [ -f "$TMP_DIR/test_multiple_pages_p000002.pdf" ]
 }
+
+@test "Download using a complete URL" {
+  run hathitrust-downloader "https://babel.hathitrust.org/cgi/pt?id=mdp.39015027794331&seq=1" 1 1 --name "$TMP_DIR/test_url_page"
+  [ "$status" -eq 0 ]
+  [ -f "$TMP_DIR/test_url_page_p000000.pdf" ]
+}

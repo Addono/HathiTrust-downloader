@@ -3,16 +3,38 @@ import os
 import requests
 import time
 import argparse
+from urllib.parse import urlparse, parse_qs
+
+def extract_id_from_url(url):
+    """
+    Extracts the ID parameter from a given URL.
+
+    Args:
+        url (str): The URL containing the ID parameter.
+
+    Returns:
+        str: The value of the ID parameter if found, otherwise None.
+    """
+    parsed_url = urlparse(url)
+    query_params = parse_qs(parsed_url.query)
+    return query_params.get('id', [None])[0]
 
 def main():
     parser = argparse.ArgumentParser(description='Book downloader for HathiTrust')
 
-    parser.add_argument('id', type=str, help="The ID of the book, e.g 'mdp.39015027794331'.")
+    parser.add_argument('id', type=str, help="The ID of the book, e.g 'mdp.39015027794331' or a complete URL.")
     parser.add_argument('start_page', type=int, help="The page number of the first page to be downloaded.")
     parser.add_argument('end_page', type=int, help="The last number of the last page to be downloaded (inclusive).")
     parser.add_argument('--name', dest='name', type=str, help="The start of the filename. Defaults to using the id. This can also be used to change the path.")
 
     args = parser.parse_args()
+
+    # If the id argument is a URL, extract the ID from it
+    if args.id.startswith('http'):
+        args.id = extract_id_from_url(args.id)
+        if not args.id:
+            print("Error: Could not extract ID from the provided URL.")
+            return
 
     # If --name is used to specify a path, extract the directory part
     if args.name:
