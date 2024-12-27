@@ -7,13 +7,13 @@ from urllib.parse import urlparse, parse_qs
 
 def extract_id_from_url(url):
     """
-    Extracts the ID parameter from a given URL.
+    Extracts the ID parameter from a HathiTrust URL.
 
     Args:
-        url (str): The URL containing the ID parameter.
+        url (str): The complete URL containing the ID parameter.
 
     Returns:
-        str: The value of the ID parameter if found, otherwise None.
+        str: The extracted ID value or None if not found.
     """
     parsed_url = urlparse(url)
     query_params = parse_qs(parsed_url.query)
@@ -29,12 +29,8 @@ def main():
 
     args = parser.parse_args()
 
-    # If the id argument is a URL, extract the ID from it
-    if args.id.startswith('http'):
-        args.id = extract_id_from_url(args.id)
-        if not args.id:
-            print("Error: Could not extract ID from the provided URL.")
-            return
+    # Extract ID from URL if necessary
+    book_id = extract_id_from_url(args.id) if args.id.startswith("http") else args.id
 
     # If --name is used to specify a path, extract the directory part
     if args.name:
@@ -48,20 +44,20 @@ def main():
                 return
 
     page_numbers = [i for i in range(args.start_page - 1, args.end_page)]
-    urls = ["https://babel.hathitrust.org/cgi/imgsrv/download/pdf?id=%s;orient=0;size=100;seq=%s;attachment=0" % (args.id, i + 1) for i in page_numbers]
+    urls = ["https://babel.hathitrust.org/cgi/imgsrv/download/pdf?id=%s;orient=0;size=100;seq=%s;attachment=0" % (book_id, i + 1) for i in page_numbers]
 
     for page_number, url in tqdm(zip(page_numbers, urls), unit="pages", total=len(urls)):
-        filename = "%s_p%s.pdf" % (args.name or args.id, str(page_number).zfill(6))
+        filename = "%s_p%s.pdf" % (args.name or book_id, str(page_number).zfill(6))
 
         while True:
             try:
                 response = requests.get(url, stream=True)
 
                 if response.status_code == 404:
-                    print(f"Error: Page {page_number} for book with ID '{args.id}' not found.")
+                    print(f"Error: Page {page_number} for book with ID '{book_id}' not found.")
                     exit(1)
                 elif response.status_code == 500:
-                    print(f"Error: The server failed to serve page {page_number} for book '{args.id}', this could indicate that the book identifier is invalid.")
+                    print(f"Error: The server failed to serve page {page_number} for book '{book_id}', this could indicate that the book identifier is invalid.")
                     return
                 elif response.ok:
                     with open(filename, "wb") as handle:

@@ -72,10 +72,7 @@ hathitrust-downloader mdp.39015073487137 1 10 --name my-book
 > https://babel.hathitrust.org/cgi/pt?id=mdp.39015073487137&seq=13
 >                                        ^^^^^^^^^^^^^^^^^^ This demarks the ID of this book
 > ```
-> Alternatively, you can provide the complete URL as the ID argument, and the tool will extract the ID for you:
-> ```
-> hathitrust-downloader "https://babel.hathitrust.org/cgi/pt?id=mdp.39015073487137&seq=1" 1 10 --name my-book
-> ```
+> Alternatively, you can provide the complete URL as the ID argument, and the tool will attempt to parse the ID from the URL. Note that this feature is best-effort, and for optimal stability, it is still recommended to provide the specific ID directly.
 
 ## Troubleshooting
 
