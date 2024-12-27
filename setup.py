@@ -9,7 +9,7 @@ import hathitrustdownloader
 
 
 setup(
-    name='hathitrust-downloader',
+    name='hathitrust_downloader',
     version=os.environ.get('HATHITRUST_DOWNLOADER_VERSION', '0.0.0'),
     description='Downloads multiple pages from Hathitrust from the CLI.',
     long_description=open('README.md').read(),
