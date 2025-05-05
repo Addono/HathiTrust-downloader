@@ -19,7 +19,7 @@ setup(
     author_email='hi@aknapen.nl',
     license='MIT',
     classifiers=[
-        'Development Status :: 4 - Beta',
+        'Development Status :: 6 - Mature',
         'Intended Audience :: Developers',
         'Operating System :: POSIX',
         'Operating System :: POSIX :: Linux',
