@@ -5,6 +5,8 @@ import time
 import argparse
 from urllib.parse import urlparse, parse_qs
 
+DEFAULT_USER_AGENT='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36'
+
 def extract_id_from_url(url):
     """
     Extracts the ID parameter from a HathiTrust URL.
@@ -26,6 +28,7 @@ def main():
     parser.add_argument('start_page', type=int, help="The page number of the first page to be downloaded.")
     parser.add_argument('end_page', type=int, help="The last number of the last page to be downloaded (inclusive).")
     parser.add_argument('--name', dest='name', type=str, help="The start of the filename. Defaults to using the id. This can also be used to change the path.")
+    parser.add_argument('--user-agent', dest='user_agent', type=str, help="The User-Agent string to use for requests.")
 
     args = parser.parse_args()
 
@@ -51,8 +54,9 @@ def main():
 
         while True:
             try:
+                user_agent = args.user_agent if args.user_agent else DEFAULT_USER_AGENT
                 headers = {
-                    'User-Agent': 'hathitrust-downloader',
+                    'User-Agent': user_agent,
                 }
                 response = requests.get(url, stream=True, headers=headers)
 
