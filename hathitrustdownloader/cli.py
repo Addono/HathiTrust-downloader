@@ -51,6 +51,10 @@ def main():
 
     for page_number, url in tqdm(zip(page_numbers, urls), unit="pages", total=len(urls)):
         filename = "%s_p%s.pdf" % (args.name or book_id, str(page_number).zfill(6))
+        
+        retries = 0
+        max_retries = 7  # Max retries for 403 errors
+        backoff_factor = 1  # Initial backoff in seconds
 
         while True:
             try:
@@ -61,12 +65,19 @@ def main():
                 response = requests.get(url, stream=True, headers=headers)
 
                 if response.status_code == 403:
-                    print(f"Error: Access forbidden (403) for page {page_number}, book ID '{book_id}'. This might be due to access restrictions.")
-                    # Decide if we should exit or continue to the next page. For now, let's exit.
-                    exit(1)
+                    if retries < max_retries:
+                        wait_time = backoff_factor * (2 ** retries)
+                        print(f"Warning: Access forbidden (403) for page {page_number}, book ID '{book_id}'. Retrying in {wait_time} seconds... (Attempt {retries + 1}/{max_retries})")
+                        time.sleep(wait_time)
+                        retries += 1
+                        continue  # Retry the request
+                    else:
+                        print(f"Error: Access forbidden (403) for page {page_number}, book ID '{book_id}' after {max_retries} retries. Skipping this page.")
+                        break # Break from the while True loop for this page
                 elif response.status_code == 404:
                     print(f"Error: Page {page_number} for book with ID '{book_id}' not found.")
-                    exit(1)
+                    # We might want to decide if we exit or just skip this page. For now, let's keep exit.
+                    exit(1) 
                 elif response.status_code == 500:
                     print(f"Error: The server failed to serve page {page_number} for book '{book_id}', this could indicate that the book identifier is invalid.")
                     return
