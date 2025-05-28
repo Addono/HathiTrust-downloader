@@ -22,7 +22,7 @@ def extract_id_from_url(url):
 def main():
     parser = argparse.ArgumentParser(description='Book downloader for HathiTrust')
 
-    parser.add_argument('id', type=str, help="The ID of the book, e.g 'mdp.39015027794331' or a complete URL.")
+    parser.add_argument('id', type=str, help="The ID of the book, e.g 'mdp.39015002388380' or a complete URL.")
     parser.add_argument('start_page', type=int, help="The page number of the first page to be downloaded.")
     parser.add_argument('end_page', type=int, help="The last number of the last page to be downloaded (inclusive).")
     parser.add_argument('--name', dest='name', type=str, help="The start of the filename. Defaults to using the id. This can also be used to change the path.")

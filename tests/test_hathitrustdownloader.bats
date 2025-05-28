@@ -23,13 +23,13 @@ teardown() {
 }
 
 @test "Download a single page" {
-  run hathitrust-downloader mdp.39015027794331 1 1 --name "$TMP_DIR/test_single_page"
+  run hathitrust-downloader mdp.39015002388380 1 1 --name "$TMP_DIR/test_single_page"
   [ "$status" -eq 0 ]
   [ -f "$TMP_DIR/test_single_page_p000000.pdf" ]
 }
 
 @test "Download multiple pages" {
-  run hathitrust-downloader mdp.39015027794331 1 3 --name "$TMP_DIR/test_multiple_pages"
+  run hathitrust-downloader mdp.39015002388380 1 3 --name "$TMP_DIR/test_multiple_pages"
   [ "$status" -eq 0 ]
   [ -f "$TMP_DIR/test_multiple_pages_p000000.pdf" ]
   [ -f "$TMP_DIR/test_multiple_pages_p000001.pdf" ]
@@ -37,7 +37,7 @@ teardown() {
 }
 
 @test "Download using a complete URL" {
-  run hathitrust-downloader "https://babel.hathitrust.org/cgi/pt?id=mdp.39015027794331&seq=1" 1 1 --name "$TMP_DIR/test_url_page"
+  run hathitrust-downloader "https://babel.hathitrust.org/cgi/pt?id=mdp.39015002388380&seq=1" 1 1 --name "$TMP_DIR/test_url_page"
   [ "$status" -eq 0 ]
   [ -f "$TMP_DIR/test_url_page_p000000.pdf" ]
 }

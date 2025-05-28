@@ -51,7 +51,7 @@ usage: hathitrust-downloader [-h] [--name NAME] id start_page end_page
 Book downloader for HathiTrust
 
 positional arguments:
-  id           The ID of the book, e.g 'mdp.39015027794331' or a complete URL.
+  id           The ID of the book, e.g 'mdp.39015002388380' or a complete URL.
   start_page   The page number of the first page to be downloaded.
   end_page     The last number of the last page to be downloaded (inclusive).
 
