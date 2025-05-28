@@ -29,6 +29,7 @@ def main():
     parser.add_argument('end_page', type=int, help="The last number of the last page to be downloaded (inclusive).")
     parser.add_argument('--name', dest='name', type=str, help="The start of the filename. Defaults to using the id. This can also be used to change the path.")
     parser.add_argument('--user-agent', dest='user_agent', type=str, help="The User-Agent string to use for requests.")
+    parser.add_argument('--max-retries', dest='max_retries', type=int, default=8, help="The maximum number of retries for retriable errors (e.g., 403 Forbidden) before skipping a page. Default is 8.")
 
     args = parser.parse_args()
 
@@ -53,7 +54,7 @@ def main():
         filename = "%s_p%s.pdf" % (args.name or book_id, str(page_number).zfill(6))
         
         retries = 0
-        max_retries = 7  # Max retries for 403 errors
+        # Use the max_retries from command line arguments
         backoff_factor = 1  # Initial backoff in seconds
 
         while True:
@@ -65,14 +66,14 @@ def main():
                 response = requests.get(url, stream=True, headers=headers)
 
                 if response.status_code == 403:
-                    if retries < max_retries:
+                    if retries < args.max_retries:
                         wait_time = backoff_factor * (2 ** retries)
-                        print(f"Warning: Access forbidden (403) for page {page_number}, book ID '{book_id}'. Retrying in {wait_time} seconds... (Attempt {retries + 1}/{max_retries})")
+                        print(f"Warning: Access forbidden (403) for page {page_number}, book ID '{book_id}'. Retrying in {wait_time} seconds... (Attempt {retries + 1}/{args.max_retries})")
                         time.sleep(wait_time)
                         retries += 1
                         continue  # Retry the request
                     else:
-                        print(f"Error: Access forbidden (403) for page {page_number}, book ID '{book_id}' after {max_retries} retries. Skipping this page.")
+                        print(f"Error: Access forbidden (403) for page {page_number}, book ID '{book_id}' after {args.max_retries} retries. Skipping this page.")
                         break # Break from the while True loop for this page
                 elif response.status_code == 404:
                     print(f"Error: Page {page_number} for book with ID '{book_id}' not found.")
