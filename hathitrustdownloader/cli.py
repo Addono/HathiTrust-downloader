@@ -53,7 +53,11 @@ def main():
             try:
                 response = requests.get(url, stream=True)
 
-                if response.status_code == 404:
+                if response.status_code == 403:
+                    print(f"Error: Access forbidden (403) for page {page_number}, book ID '{book_id}'. This might be due to access restrictions.")
+                    # Decide if we should exit or continue to the next page. For now, let's exit.
+                    exit(1)
+                elif response.status_code == 404:
                     print(f"Error: Page {page_number} for book with ID '{book_id}' not found.")
                     exit(1)
                 elif response.status_code == 500:
