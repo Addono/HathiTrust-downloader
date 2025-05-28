@@ -34,6 +34,9 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y bats
 
+    - name: Display public IP and location
+      run: curl ipinfo.io
+
     - name: Install the application
       run: pip install .
 
