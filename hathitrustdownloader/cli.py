@@ -51,7 +51,10 @@ def main():
 
         while True:
             try:
-                response = requests.get(url, stream=True)
+                headers = {
+                    'User-Agent': f'hathitrust-downloader',
+                }
+                response = requests.get(url, stream=True, headers=headers)
 
                 if response.status_code == 403:
                     print(f"Error: Access forbidden (403) for page {page_number}, book ID '{book_id}'. This might be due to access restrictions.")
