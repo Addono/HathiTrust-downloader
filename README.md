@@ -46,18 +46,22 @@ The executable is bundled with Python and all other dependencies, hence you do n
 The help should give some instructions on how to use the tool:
 
 ```bash
-usage: hathitrust-downloader [-h] [--name NAME] id start_page end_page
+usage: hathitrust-downloader [-h] [--name NAME] [--user-agent USER_AGENT] [--max-retries MAX_RETRIES] id start_page end_page
 
 Book downloader for HathiTrust
 
 positional arguments:
-  id           The ID of the book, e.g 'mdp.39015002388380' or a complete URL.
-  start_page   The page number of the first page to be downloaded.
-  end_page     The last number of the last page to be downloaded (inclusive).
+  id                    The ID of the book, e.g 'mdp.39015002388380' or a complete URL.
+  start_page            The page number of the first page to be downloaded.
+  end_page              The last number of the last page to be downloaded (inclusive).
 
 options:
-  -h, --help   show this help message and exit
-  --name NAME  The start of the filename. Defaults to using the id. This can also be used to change the path.
+  -h, --help            show this help message and exit
+  --name NAME           The start of the filename. Defaults to using the id. This can also be used to change the path.
+  --user-agent USER_AGENT
+                        The User-Agent string to use for requests.
+  --max-retries MAX_RETRIES
+                        The maximum number of retries for retriable errors (e.g., 403 Forbidden) before skipping a page. Default is 8.
 ```
 
 For example, the following command will download page 1 until (and including) 10 of the book with id `mdp.39015073487137` and naming the files output files `my-book_page_<page_number>.pdf`:
