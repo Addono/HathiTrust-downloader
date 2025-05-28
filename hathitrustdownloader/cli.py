@@ -52,7 +52,7 @@ def main():
         while True:
             try:
                 headers = {
-                    'User-Agent': f'hathitrust-downloader',
+                    'User-Agent': 'hathitrust-downloader',
                 }
                 response = requests.get(url, stream=True, headers=headers)
 
