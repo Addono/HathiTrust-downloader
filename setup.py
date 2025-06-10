@@ -34,7 +34,7 @@ setup(
     keywords='hathitrust download downloader cli',
     packages=find_packages(),
     install_requires=[
-        'requests==2.32.3',
+        'requests==2.32.4',
         'tqdm==4.66.5',
     ],
     include_package_data=True,
