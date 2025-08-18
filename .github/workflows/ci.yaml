@@ -23,7 +23,7 @@ jobs:
   #         - "3.13"
 
   #   steps:
-  #   - uses: actions/checkout@v4
+  #   - uses: actions/checkout@v5
 
   #   - name: Set up Python ${{ matrix.python-version }}
   #     uses: actions/setup-python@v5
@@ -51,7 +51,7 @@ jobs:
     needs: [] #[test]
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
 
     - name: Set up Python ${{ env.PYTHON_RELEASE_VERSION }}
       uses: actions/setup-python@v5
@@ -92,7 +92,7 @@ jobs:
 
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
 
     - name: Set up Python ${{ env.PYTHON_RELEASE_VERSION }}
       uses: actions/setup-python@v5
