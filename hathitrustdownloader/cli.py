@@ -31,7 +31,7 @@ def main():
     parser.add_argument('--name', dest='name', type=str, help="The start of the filename. Defaults to using the id. This can also be used to change the path.")
     parser.add_argument('--user-agent', dest='user_agent', type=str, help="The User-Agent string to use for requests.")
     parser.add_argument('--max-retries', dest='max_retries', type=int, default=8, help="The maximum number of retries for retriable errors (e.g., 403 Forbidden) before skipping a page. Default is 8.")
-    parser.add_argument('--cookies', dest='cookies', type=str, help="Path to a Netscape formatted cookies.txt file.")
+    parser.add_argument('--cookies', dest='cookies', type=str, help="A raw cookie string (e.g. 'name=val; name2=val2') or the path to a Netscape formatted cookies.txt file.")
     parser.add_argument('--cert', dest='cert', type=str, help="Path to a client certificate file (.pem).")
     parser.add_argument('--key', dest='key', type=str, help="Path to a private key file (.key).")
 
@@ -39,13 +39,26 @@ def main():
 
     session = requests.Session()
     if args.cookies:
-        try:
-            cookie_jar = cookielib.MozillaCookieJar(args.cookies)
-            cookie_jar.load()
-            session.cookies.update(cookie_jar)
-        except Exception as e:
-            print(f"Failed to load cookies from '{args.cookies}': {e}")
-            return
+        if os.path.isfile(args.cookies):
+            try:
+                cookie_jar = cookielib.MozillaCookieJar(args.cookies)
+                cookie_jar.load()
+                session.cookies.update(cookie_jar)
+            except Exception as e:
+                print(f"Failed to load cookies from file '{args.cookies}': {e}")
+                return
+        else:
+            try:
+                from http.cookies import SimpleCookie
+                cookie = SimpleCookie()
+                cookie.load(args.cookies)
+                cookies_dict = {key: morsel.value for key, morsel in cookie.items()}
+                if not cookies_dict:
+                    raise ValueError("No valid cookies could be parsed.")
+                session.cookies.update(cookies_dict)
+            except Exception as e:
+                print(f"Failed to parse cookies string: {e}")
+                return
 
     cert = None
     if args.cert and args.key:
