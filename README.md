@@ -53,8 +53,8 @@ Now you can use the tool by typing commands into the shell like this, and then p
 The help should give some instructions on how to use the tool:
 
 usage: hathitrust-downloader [-h] [--name NAME] [--user-agent USER_AGENT]
-                             [--max-retries MAX_RETRIES] [--cert CERT_FILE]
-                             [--key KEY_FILE]
+                             [--max-retries MAX_RETRIES] [--cookies COOKIE_JAR]
+                             [--cert CERT_FILE] [--key KEY_FILE]
                              id start_page end_page
 
 Book downloader for HathiTrust
@@ -71,6 +71,7 @@ options:
                         The User-Agent string to use for requests.
   --max-retries MAX_RETRIES
                         The maximum number of retries for retriable errors (e.g., 403 Forbidden) before skipping a page. Default is 8.
+  --cookies COOKIE_JAR  Path to a Netscape-format cookie jar file for authenticated requests.
   --cert CERT_FILE      Path to a client SSL certificate file (PEM format) for authentication.
   --key KEY_FILE        Path to a private key file (PEM format) corresponding to the client certificate.
 ```
@@ -98,6 +99,43 @@ hathitrust-downloader mdp.39015073487137 1 10 --name my-book
 > hathitrust-downloader 'https://babel.hathitrust.org/cgi/pt?id=mdp.39015073487137&seq=13' 1 10 --name my-book
 > ```
 
+### Authentication
+
+Some books on HathiTrust are only available if you are logged in through a partner institution, or if you are connecting from a specific region (e.g. the United States). If you are getting **403 Forbidden** errors or the download keeps retrying without making progress, you may need to pass your browser cookies to the downloader so it can access the book on your behalf.
+
+#### When do I need this?
+
+- You can open and read the book in your browser, but the downloader gives **403** errors.
+- You are accessing HathiTrust through a university or library login.
+- You are outside the US and some books are blocked in your region, but you have legitimate access through an institution.
+
+#### Step 1: Log in to HathiTrust in your browser
+
+Open [HathiTrust](https://www.hathitrust.org/) in your browser and log in through your institution. Verify that you can view the book you want to download.
+
+#### Step 2: Export your cookies
+
+You need to export your browser cookies for `hathitrust.org` into a text file. The easiest way to do this is with a browser extension:
+
+- **Firefox**: Install the [cookies.txt](https://addons.mozilla.org/en-US/firefox/addon/cookies-txt/) extension. After installing, navigate to the HathiTrust page, click the extension icon, and select **"Export"** to save the cookies to a file (e.g. `cookies.txt`).
+- **Chrome**: Install the [Get cookies.txt LOCALLY](https://chromewebstore.google.com/detail/get-cookiestxt-locally/cclelndahbckbenkjhflpdbgdldlbecc) extension. Navigate to the HathiTrust page, click the extension icon, and export the cookies.
+
+> [!NOTE]
+> The exported file must be in **Netscape/Mozilla cookie jar format** (this is the default format for the extensions listed above). The file typically looks like a text file with tab-separated values — you do not need to edit it.
+
+#### Step 3: Use the `--cookies` flag
+
+Pass the path to your exported cookie file using the `--cookies` flag:
+
+```bash
+hathitrust-downloader mdp.39015073487137 1 10 --name my-book --cookies cookies.txt
+```
+
+That's it! The downloader will now use your browser session to authenticate with HathiTrust.
+
+> [!WARNING]
+> Cookie files contain sensitive session data. Do not share your `cookies.txt` file with others. Cookies typically expire after some time, so you may need to re-export them if your downloads start failing again.
+
 ### Client Certificate Authentication (Advanced)
 
 If your institution uses client SSL certificates to authenticate access to restricted HathiTrust volumes, you can specify them using the `--cert` and `--key` switches:
@@ -106,8 +144,14 @@ If your institution uses client SSL certificates to authenticate access to restr
 hathitrust-downloader mdp.39015073487137 1 10 --cert my-cert.pem --key my-key.pem
 ```
 
+You can also combine cookies with client certificates if needed:
+
+```bash
+hathitrust-downloader mdp.39015073487137 1 10 --cookies cookies.txt --cert my-cert.pem --key my-key.pem
+```
+
 > [!NOTE]
-> The certificate and key files should be in **PEM format**.
+> The certificate and key files should be in **PEM format**. Most users will only need `--cookies`. Client certificates are uncommon and typically only required by specific institutional setups. If you are unsure, start with just `--cookies`.
 
 
 

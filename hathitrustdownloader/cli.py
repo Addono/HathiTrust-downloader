@@ -4,6 +4,7 @@ import requests
 import time
 import argparse
 from urllib.parse import urlparse, parse_qs
+import http.cookiejar as cookielib
 
 DEFAULT_USER_AGENT='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36'
 
@@ -30,10 +31,21 @@ def main():
     parser.add_argument('--name', dest='name', type=str, help="The start of the filename. Defaults to using the id. This can also be used to change the path.")
     parser.add_argument('--user-agent', dest='user_agent', type=str, help="The User-Agent string to use for requests.")
     parser.add_argument('--max-retries', dest='max_retries', type=int, default=8, help="The maximum number of retries for retriable errors (e.g., 403 Forbidden) before skipping a page. Default is 8.")
+    parser.add_argument('--cookies', dest='cookies', type=str, help="Path to a Netscape formatted cookies.txt file.")
     parser.add_argument('--cert', dest='cert', type=str, help="Path to a client certificate file (.pem).")
     parser.add_argument('--key', dest='key', type=str, help="Path to a private key file (.key).")
 
     args = parser.parse_args()
+
+    session = requests.Session()
+    if args.cookies:
+        try:
+            cookie_jar = cookielib.MozillaCookieJar(args.cookies)
+            cookie_jar.load()
+            session.cookies.update(cookie_jar)
+        except Exception as e:
+            print(f"Failed to load cookies from '{args.cookies}': {e}")
+            return
 
     cert = None
     if args.cert and args.key:
@@ -71,7 +83,7 @@ def main():
                 headers = {
                     'User-Agent': user_agent,
                 }
-                response = requests.get(url, stream=True, headers=headers, cert=cert)
+                response = session.get(url, stream=True, headers=headers, cert=cert)
 
                 if response.status_code == 403:
                     if retries < args.max_retries:
