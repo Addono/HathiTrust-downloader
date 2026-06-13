@@ -5,7 +5,7 @@ on:
   push: 
 
 env:
-  PYTHON_RELEASE_VERSION: "3.10"
+  PYTHON_RELEASE_VERSION: "3.11"
 
 jobs:
   ## Avoid running tests, as they will fail on the public runners
