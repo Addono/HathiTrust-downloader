@@ -30,8 +30,16 @@ def main():
     parser.add_argument('--name', dest='name', type=str, help="The start of the filename. Defaults to using the id. This can also be used to change the path.")
     parser.add_argument('--user-agent', dest='user_agent', type=str, help="The User-Agent string to use for requests.")
     parser.add_argument('--max-retries', dest='max_retries', type=int, default=8, help="The maximum number of retries for retriable errors (e.g., 403 Forbidden) before skipping a page. Default is 8.")
+    parser.add_argument('--cert', dest='cert', type=str, help="Path to a client certificate file (.pem).")
+    parser.add_argument('--key', dest='key', type=str, help="Path to a private key file (.key).")
 
     args = parser.parse_args()
+
+    cert = None
+    if args.cert and args.key:
+        cert = (args.cert, args.key)
+    elif args.cert:
+        cert = args.cert
 
     # Extract ID from URL if necessary
     book_id = extract_id_from_url(args.id) if args.id.startswith("http") else args.id
@@ -63,7 +71,7 @@ def main():
                 headers = {
                     'User-Agent': user_agent,
                 }
-                response = requests.get(url, stream=True, headers=headers)
+                response = requests.get(url, stream=True, headers=headers, cert=cert)
 
                 if response.status_code == 403:
                     if retries < args.max_retries:

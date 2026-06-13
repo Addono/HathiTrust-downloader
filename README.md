@@ -52,8 +52,10 @@ Now you can use the tool by typing commands into the shell like this, and then p
 
 The help should give some instructions on how to use the tool:
 
-```bash
-usage: hathitrust-downloader [-h] [--name NAME] [--user-agent USER_AGENT] [--max-retries MAX_RETRIES] id start_page end_page
+usage: hathitrust-downloader [-h] [--name NAME] [--user-agent USER_AGENT]
+                             [--max-retries MAX_RETRIES] [--cert CERT_FILE]
+                             [--key KEY_FILE]
+                             id start_page end_page
 
 Book downloader for HathiTrust
 
@@ -69,6 +71,8 @@ options:
                         The User-Agent string to use for requests.
   --max-retries MAX_RETRIES
                         The maximum number of retries for retriable errors (e.g., 403 Forbidden) before skipping a page. Default is 8.
+  --cert CERT_FILE      Path to a client SSL certificate file (PEM format) for authentication.
+  --key KEY_FILE        Path to a private key file (PEM format) corresponding to the client certificate.
 ```
 
 For example, the following command will download page 1 until (and including) 10 of the book with id `mdp.39015073487137` and naming the files output files `my-book_page_<page_number>.pdf`:
@@ -93,6 +97,18 @@ hathitrust-downloader mdp.39015073487137 1 10 --name my-book
 > ```bash
 > hathitrust-downloader 'https://babel.hathitrust.org/cgi/pt?id=mdp.39015073487137&seq=13' 1 10 --name my-book
 > ```
+
+### Client Certificate Authentication (Advanced)
+
+If your institution uses client SSL certificates to authenticate access to restricted HathiTrust volumes, you can specify them using the `--cert` and `--key` switches:
+
+```bash
+hathitrust-downloader mdp.39015073487137 1 10 --cert my-cert.pem --key my-key.pem
+```
+
+> [!NOTE]
+> The certificate and key files should be in **PEM format**.
+
 
 
 ## Troubleshooting
